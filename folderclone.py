@@ -1,4 +1,16 @@
-# 1ZHkaq2mDUmIh6-MQm5p8tLiJ3or15l8k 1KkN0iW-fSq-fg8xFR1c2WAyr9VlGQe90
+"""
+USAGE:
+python3 folderclone.py starting_account source_dir destination_dir
+
+starting_account:
+account number to start on, useful for having multiple clones use different accounts
+
+source_dir:
+id of the source directory
+
+destination_dir:
+id of the destination directory
+"""
 
 from oauth2client.service_account import ServiceAccountCredentials
 import googleapiclient.discovery, json, progress.bar, socket, time, sys
@@ -44,7 +56,7 @@ def copy(source, dest):
         copied_file = drive.files().copy(fileId=source, body={"parents": [dest]}, supportsAllDrives=True).execute()
     except googleapiclient.errors.HttpError as e:
         cred_num += 1
-        credentials = ServiceAccountCredentials.from_json_keyfile_name("accounts/" + str(cred_num) + ".json", scopes=[
+        credentials = ServiceAccountCredentials.from_json_keyfile_name("accounts/alvro-ccsf-" + str(cred_num) + ".json", scopes=[
             "https://www.googleapis.com/auth/drive"
         ])
         drive = googleapiclient.discovery.build("drive", "v3", credentials=credentials)
