@@ -27,7 +27,7 @@ credentials = ServiceAccountCredentials.from_json_keyfile_name("key.json", scope
 
 drive = googleapiclient.discovery.build("drive", "v3", credentials=credentials)
 
-for i in range(sys.argv[2], sys.argv[3]+1):
+for i in range(int(sys.argv[2]), int(sys.argv[3])+1):
     for o in range(1, 101):
         print(sys.argv[4] + str(o + (100*i) - 100) + "@" + sys.argv[5] + str(i) + ".iam.gserviceaccount.com")
         drive.permissions().create(fileId=sys.argv[1], supportsAllDrives=True, body={
