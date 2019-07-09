@@ -16,7 +16,7 @@ prefix of project
 """
 
 from oauth2client.service_account import ServiceAccountCredentials
-import googleapiclient.discovery, base64, json, progress.bar
+import googleapiclient.discovery, base64, json, progress.bar, sys
 
 def create_service_account_and_dump_key(project_id, service_account_name, service_account_filename):
     
@@ -42,9 +42,9 @@ def create_service_account_and_dump_key(project_id, service_account_name, servic
     f.write(base64.b64decode(key["privateKeyData"]).decode("utf-8"))
     f.close()
 
-pbar = progress.bar.Bar("creating accounts", max=((sys.argv[2] - sys.argv[1]) * 100))
+pbar = progress.bar.Bar("creating accounts", max=((int(sys.argv[2]) - int(sys.argv[1])) * 100))
 
-for i in range(sys.argv[1], sys.argv[2]+1):
+for i in range(int(sys.argv[1]), int(sys.argv[2])+1):
     
     credentials = ServiceAccountCredentials.from_json_keyfile_name("controller" + str(i) + ".json", scopes=[
         "https://www.googleapis.com/auth/iam"
