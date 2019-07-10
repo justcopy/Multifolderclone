@@ -21,7 +21,7 @@ prefix of project
 from oauth2client.service_account import ServiceAccountCredentials
 import googleapiclient.discovery, json, progress.bar, sys
 
-credentials = ServiceAccountCredentials.from_json_keyfile_name("key.json", scopes=[
+credentials = ServiceAccountCredentials.from_json_keyfile_name("controller1.json", scopes=[
     "https://www.googleapis.com/auth/drive"
 ])
 
