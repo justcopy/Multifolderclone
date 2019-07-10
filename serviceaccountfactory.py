@@ -52,7 +52,7 @@ for i in range(int(sys.argv[1]), int(sys.argv[2])+1):
     
     iam = googleapiclient.discovery.build("iam", "v1", credentials=credentials)
     
-    for o in range(1, 101):
+    for o in range(1, 100):
         
         create_service_account_and_dump_key(sys.argv[4] + str(i), sys.argv[3] + str(((i-1)*100)+o), str(((i-1)*100)+o))
         pbar.next()
