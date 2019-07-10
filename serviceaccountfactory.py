@@ -42,7 +42,7 @@ def create_service_account_and_dump_key(project_id, service_account_name, servic
     f.write(base64.b64decode(key["privateKeyData"]).decode("utf-8"))
     f.close()
 
-pbar = progress.bar.Bar("creating accounts", max=((int(sys.argv[2]) - int(sys.argv[1])) * 100))
+pbar = progress.bar.Bar("creating accounts", max=((int(sys.argv[2]) + 1 - int(sys.argv[1])) * 100))
 
 for i in range(int(sys.argv[1]), int(sys.argv[2])+1):
     
