@@ -17,7 +17,7 @@ Steps to make required number of service accounts for cloning
 9) Make sure the selected Key type is JSON. Click on `Select...` and click on `New service account`.
 10) Select the Service account name the same as the project name. For example, the Service account name for our 100TB job will be `copyjob1`.
 11) Click on `Select a role` and scroll down to `Service Accounts`. From there, enable `Create Service Accounts` and `Service Account Key Admin`. After that, press the blue `Create` button on the main screen. You should be prompted to download a JSON file. Save it.
-12) Repeat Steps 8 to 11 for all your projects.
+12) Repeat Steps 7 to 11 for all your projects.
 13) Place the JSON files in the same folder as the 3 scripts are in. Rename the first project JSON file to controller1.json, the 2nd JSON to controller2.json and so on.
 14) Open terminal in the scripts folder and run the following command. `python3 serviceaccountfactory.py 1 [number of projects] [accountprefix of your choice] [project prefix]`. Replace `[number of projects]` with the total number of projects used, `[accountprefix of your choice]` with prefix of your choice and `[project prefix]` with the project name used in Step 4.
 15) If you have set everything up correctly, you should see the script making 99 service accounts of each project.
