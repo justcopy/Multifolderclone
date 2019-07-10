@@ -58,7 +58,7 @@ def copy(source, dest):
         cred_num += 1
         if cred_num % 100 == 0:
             cred_num += 1
-        credentials = ServiceAccountCredentials.from_json_keyfile_name("accounts/alvro-ccsf-" + str(cred_num) + ".json", scopes=[
+        credentials = ServiceAccountCredentials.from_json_keyfile_name("accounts/" + str(cred_num) + ".json", scopes=[
             "https://www.googleapis.com/auth/drive"
         ])
         drive = googleapiclient.discovery.build("drive", "v3", credentials=credentials)
