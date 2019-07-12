@@ -33,7 +33,13 @@ def lsf(parent, fname=""):
 
 def copy(source, dest, dtu):
     global drive
-    copied_file = drive[dtu].files().copy(fileId=source, body={"parents": [dest]}, supportsAllDrives=True).execute()
+    while True:
+        try:
+            copied_file = drive[dtu].files().copy(fileId=source, body={"parents": [dest]}, supportsAllDrives=True).execute()
+        except Exception as e:
+            continue
+        else:
+            break
     threads.release()
 
 def rcopy(source, dest, sname):
