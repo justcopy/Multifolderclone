@@ -76,7 +76,8 @@ print('BoundedSemaphore with %d threads' % accounts)
 dtu = 1
 
 try:
-    rcopy(str(sys.argv[2]), str(sys.argv[3]), "root")
+    rcopy(str(sys.argv[1]), str(sys.argv[2]), "root")
 except Exception as e:
     pass
-print("completed copy with account " + str(cred_num))
+print('Complete.')
+print('Ended at %s' % time.strftime("%m-%d %H:%M:%S"))
