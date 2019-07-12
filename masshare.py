@@ -1,37 +1,37 @@
-"""
-USAGE
-python3 masshare.py drive_id project_lower project_upper account_prefix project_prefix
-
-drive_id:
-id of the drive you're sharing to
-
-project_lower:
-lower bounds of project iterator
-
-project_upper:
-upper bounds of project iterator
-
-account_prefix:
-prefix of account
-
-project_prefix:
-prefix of project
-"""
-
 from oauth2client.service_account import ServiceAccountCredentials
-import googleapiclient.discovery, json, progress.bar, sys
+import googleapiclient.discovery, json, progress.bar, glob, sys
 
-credentials = ServiceAccountCredentials.from_json_keyfile_name("controller1.json", scopes=[
-    "https://www.googleapis.com/auth/drive"
+contrs = glob.glob('controller/*.json')
+
+try:
+	open(contrs[0],'r')
+	print('Found controllers.')
+except IndexError:
+	print('No controller found.')
+	sys.exit(0)
+
+input('Make sure the following email is added to the shared drive as Manager:\n' + json.loads((open(contrs[0],'r').read()))['client_email'])
+
+credentials = ServiceAccountCredentials.from_json_keyfile_name(contrs[0], scopes=[
+	"https://www.googleapis.com/auth/drive"
 ])
 
-drive = googleapiclient.discovery.build("drive", "v3", credentials=credentials)
+try:
+	did = sys.argv[1]
+except:
+	did = input('Drive ID? ')
 
-for i in range(int(sys.argv[2]), int(sys.argv[3])+1):
-    for o in range(1, 101):
-        print(sys.argv[4] + str(o + (100*i) - 100) + "@" + sys.argv[5] + str(i) + ".iam.gserviceaccount.com")
-        drive.permissions().create(fileId=sys.argv[1], supportsAllDrives=True, body={
-            "role": "fileOrganizer",
-            "type": "user",
-            "emailAddress": sys.argv[4] + str(o + (100*i) - 100) + "@" + sys.argv[5] + str(i) + ".iam.gserviceaccount.com"
-        }).execute()
+drive = googleapiclient.discovery.build("drive", "v3", credentials=credentials)
+aa = glob.glob('accounts/*.json')
+pbar = progress.bar.Bar("Adding to %s" % did,max=len(aa))
+for i in aa:
+	ce = json.loads(open(i,'r').read())['client_email']
+	drive.permissions().create(fileId=did, supportsAllDrives=True, body={
+		"role": "fileOrganizer",
+		"type": "user",
+		"emailAddress": ce
+	}).execute()
+	pbar.next()
+pbar.finish()
+
+print('Complete. You can now drop the controller inside the accounts folder for an added SA.')
