@@ -2,7 +2,7 @@ Requirements for using the scripts
 ---------------------------------
 * A Linux based OS (had problems using on Windows)
 * Python 3.7+
-* The following modules from pip3: `oauth2client`, `google-api-python-client` & `progress`
+* The following modules from pip3: `oauth2client`, `google-api-python-client`, `progress` & `httplib2shim`
 
 Steps to make required number of service accounts for cloning
 ---------------------------------
