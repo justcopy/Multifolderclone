@@ -92,7 +92,17 @@ print('BoundedSemaphore with %d threads' % accounts)
 dtu = 1
 
 try:
-    rcopy(str(sys.argv[1]), str(sys.argv[2]), "root")
+    agg1 = sys.argv[1]
+except:
+    agg1 = input('Source Folder ID? ')
+
+try:
+    agg2 = sys.argv[1]
+except:
+    agg2 = input('Destination Drive ID? ')
+    
+try:
+    rcopy(str(agg1), str(agg2), "root")
 except Exception as e:
     print(e)
 print('Complete.')
