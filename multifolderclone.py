@@ -1,6 +1,16 @@
+'''
+Usage:
+python3 multifolderclone.py source dest
+
+source:
+ID of source folder
+
+dest:
+ID of destination folder
+'''
+
 from oauth2client.service_account import ServiceAccountCredentials
-from multiprocessing import Pool, Lock
-import googleapiclient.discovery, json, progress.bar, socket, time, sys, threading, httplib2shim, glob
+import googleapiclient.discovery, progress.bar, time, threading, httplib2shim, glob, sys
 
 print('Started at %s' % time.strftime("%m-%d %H:%M:%S"))
 
@@ -78,6 +88,6 @@ dtu = 1
 try:
     rcopy(str(sys.argv[1]), str(sys.argv[2]), "root")
 except Exception as e:
-    pass
+    print(e)
 print('Complete.')
 print('Ended at %s' % time.strftime("%m-%d %H:%M:%S"))
