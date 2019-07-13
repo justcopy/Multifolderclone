@@ -12,7 +12,7 @@ ID of destination folder
 from oauth2client.service_account import ServiceAccountCredentials
 import googleapiclient.discovery, progress.bar, time, threading, httplib2shim, glob, sys
 
-print('Started at %s' % time.strftime("%m-%d %H:%M:%S"))
+stt = time.time()
 
 def ls(parent, searchTerms="", fname=""):
     files = []
@@ -33,13 +33,7 @@ def lsf(parent, fname=""):
 
 def copy(source, dest, dtu):
     global drive
-    while True:
-        try:
-            copied_file = drive[dtu].files().copy(fileId=source, body={"parents": [dest]}, supportsAllDrives=True).execute()
-        except Exception as e:
-            continue
-        else:
-            break
+    copied_file = drive[dtu].files().copy(fileId=source, body={"parents": [dest]}, supportsAllDrives=True).execute()
     threads.release()
 
 def rcopy(source, dest, sname):
@@ -50,7 +44,7 @@ def rcopy(source, dest, sname):
 
     filestocopy = lsf(source, fname=sname)
     if len(filestocopy) > 0:
-        pbar = progress.bar.Bar("copy " + sname, max=len(filestocopy))
+        pbar = progress.bar.Bar("Copying " + sname, max=len(filestocopy))
         pbar.update()
         for i in filestocopy:
             threads.acquire()
@@ -63,7 +57,7 @@ def rcopy(source, dest, sname):
         
         pbar.finish()
     else:
-        print("copy " + sname)
+        print("Copying " + sname)
     
     folderstocopy = lsd(source)
     for i in folderstocopy:
@@ -75,18 +69,18 @@ def rcopy(source, dest, sname):
         rcopy(i["id"], resp["id"], i["name"])
 
 httplib2shim.patch()
-
 drive = []
-print('Finding accounts...')
 accounts = 0
-for i in glob.glob('accounts/*.json'):
+accsf = glob.glob('accounts/*.json')
+pbar = progress.bar.Bar("Creating Drive Services", max=len(accsf))
+for i in accsf:
     accounts += 1
     credentials = ServiceAccountCredentials.from_json_keyfile_name(i, scopes=[
         "https://www.googleapis.com/auth/drive"
     ])
-    print('Creating drive service from %s' % i)
     drive.append(googleapiclient.discovery.build("drive", "v3", credentials=credentials))
-print('Create %d drive services' % accounts)
+    pbar.next()
+pbar.finish()
 threads = threading.BoundedSemaphore(accounts)
 print('BoundedSemaphore with %d threads' % accounts)
 dtu = 1
@@ -100,10 +94,15 @@ try:
     agg2 = sys.argv[1]
 except:
     agg2 = input('Destination Drive ID? ')
-    
+
 try:
     rcopy(str(agg1), str(agg2), "root")
+except KeyboardInterrupt:
+    print('Quitting')
+    pass
 except Exception as e:
     print(e)
 print('Complete.')
-print('Ended at %s' % time.strftime("%m-%d %H:%M:%S"))
+hours, rem = divmod((time.time() - stt),3600)
+minutes, sec = divmod(rem,60)
+print("Elapsed Time:\n{:0>2}:{:0>2}:{:05.2f}".format(int(hours),int(minutes),sec))
