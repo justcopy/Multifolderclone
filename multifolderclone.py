@@ -97,7 +97,7 @@ except:
     agg1 = input('Source Folder ID? ')
 
 try:
-    agg2 = sys.argv[1]
+    agg2 = sys.argv[2]
 except:
     agg2 = input('Destination Drive ID? ')
     
