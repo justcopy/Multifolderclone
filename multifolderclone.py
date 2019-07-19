@@ -119,7 +119,7 @@ print('BoundedSemaphore with %d threads' % accounts)
 dtu = 1
 
 try:
-    rcopy(args.source_id,args.destination_id , "root","└─")
+    rcopy(args.source_id,args.destination_id , "root","")
 except KeyboardInterrupt:
     print('Quitting')
     pass
