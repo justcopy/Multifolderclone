@@ -90,9 +90,9 @@ def rcopy(source, dest, sname,pre):
     s = 0
     for i in folderstocopy:
         if s == fs:
-            nstu = pre.replace("├" + "─" * width + " ","│" + " " * width + " ") + "└" + "─" * width + " "
+            nstu = pre.replace("├" + "─" * width + " ","│" + " " * width + " ").replace("└" + "─" * width + " ","  " + " " * width) + "└" + "─" * width + " "
         else:
-            nstu = pre.replace("├" + "─" * width + " ","│" + " " * width + " ") + "├" + "─" * width + " "
+            nstu = pre.replace("├" + "─" * width + " ","│" + " " * width + " ").replace("└" + "─" * width + " ","  " + " " * width) + "├" + "─" * width + " "
         resp = drive[0].files().create(body={
             "name": i["name"],
             "mimeType": "application/vnd.google-apps.folder",
