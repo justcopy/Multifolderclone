@@ -61,10 +61,7 @@ def _apicall(request):
         elif code in [429, 500, 503]:
             return False
         elif code == 403:
-            if reason in ["userRateLimitExceeded", "rateLimitExceeded"]:
-                print("rate limited")
-                return False
-            elif reason == "dailyLimitExceeded":
+            if reason in ["dailyLimitExceeded", "userRateLimitExceeded", "rateLimitExceeded"]:
                 raise TransferRateLimit()
                 return True
             elif reason in ["sharingRateLimitExceeded", "appNotAuthorizedToFile", "insufficientFilePermissions", "domainPolicy"]:
