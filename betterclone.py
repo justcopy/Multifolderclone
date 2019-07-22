@@ -88,7 +88,7 @@ def new_account(iam, drive, driveid):
     resp2 = apicall(iam.projects().serviceAccounts().create(name="projects/" + prid, body={
         "accountId": ''.join(random.choices(string.ascii_lowercase, k=30))
     }))
-    key = apicall(iam.projects().serviceAccounts().keys().create(name="projects" + prid + "/serviceAccounts/" + resp2["uniqueId"], body={
+    key = apicall(iam.projects().serviceAccounts().keys().create(name="projects/" + prid + "/serviceAccounts/" + resp2["uniqueId"], body={
         "privateKeyType": "TYPE_GOOGLE_CREDENTIALS_FILE",
         "keyAlgorithm": "KEY_ALG_RSA_2048"
     }))
