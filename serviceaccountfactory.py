@@ -48,7 +48,13 @@ while pid != '':
 		a = pid.split()
 		projects[a[0]] = a[1]
 
-prefix = input('Email prefix? ')
+prefix = ''
+while len(prefix) < 4:
+	prefix = input('Custom email prefix? ')
+	if prefix == '':
+		prefix = 'FolderClone'
+	if len(prefix) < 4:
+		print('Email prefix must be 5 characters or longer!')
 
 print('Using ' + str(len(projects)) + ' projects...')
 
