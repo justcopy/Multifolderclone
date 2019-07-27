@@ -2,6 +2,8 @@ from oauth2client.service_account import ServiceAccountCredentials
 import googleapiclient.discovery, json, socket, base64, random, string, argparse, itertools
 from multiprocessing.dummy import Pool as ThreadPool
 
+prid = ""
+
 def ls(drive, parent, searchTerms=""):
     
     files = []
@@ -59,10 +61,7 @@ def _apicall(request):
         elif code in [429, 500, 503]:
             return False
         elif code == 403:
-            if reason in ["userRateLimitExceeded", "rateLimitExceeded"]:
-                print("rate limited")
-                return False
-            elif reason == "dailyLimitExceeded":
+            if reason in ["dailyLimitExceeded", "userRateLimitExceeded", "rateLimitExceeded"]:
                 raise TransferRateLimit()
                 return True
             elif reason in ["sharingRateLimitExceeded", "appNotAuthorizedToFile", "insufficientFilePermissions", "domainPolicy"]:
@@ -79,13 +78,14 @@ def _apicall(request):
 # ret 1 = error
 # ret * = new account
 def new_account(iam, drive, driveid):
+    global prid
     
     print("create new account")
     
-    resp2 = apicall(iam.projects().serviceAccounts().create(name="projects/betterclone-testing", body={
+    resp2 = apicall(iam.projects().serviceAccounts().create(name="projects/" + prid, body={
         "accountId": ''.join(random.choices(string.ascii_lowercase, k=30))
     }))
-    key = apicall(iam.projects().serviceAccounts().keys().create(name="projects/betterclone-testing/serviceAccounts/" + resp2["uniqueId"], body={
+    key = apicall(iam.projects().serviceAccounts().keys().create(name="projects/" + prid + "/serviceAccounts/" + resp2["uniqueId"], body={
         "privateKeyType": "TYPE_GOOGLE_CREDENTIALS_FILE",
         "keyAlgorithm": "KEY_ALG_RSA_2048"
     }))
@@ -104,16 +104,16 @@ def new_account(iam, drive, driveid):
     return drive
 
 def old_account(iam, drive, driveid):
+    global prid
     
     print("delete old account")
     
-    print(drive.email)
     try:
         apicall(drive.permissions().delete(fileId=driveid, permissionId=drive.pid, supportsAllDrives=True))
     except googleapiclient.errors.HttpError:
         pass
     try:
-        apicall(iam.projects().serviceAccounts().delete(name="projects/betterclone-testing/serviceAccounts/" + drive.service_id))
+        apicall(iam.projects().serviceAccounts().delete(name="projects/" + prid + "/serviceAccounts/" + drive.email))
     except googleapiclient.errors.HttpError:
         pass
 
@@ -191,9 +191,11 @@ def resolve_folder(drive, source, dest):
     return ret
 
 def main():
-    
+    global prid
+
     parser = argparse.ArgumentParser("betterclone.py", description="copies a folder using service accounts")
     parser.add_argument("-k", "--keyfile", default="key.json", help="keyfile filename")
+    parser.add_argument("project", help="id of the project")
     parser.add_argument("source", help="id of the source folder")
     parser.add_argument("destination", help="id of the destination folder")
     args = parser.parse_args()
@@ -205,7 +207,7 @@ def main():
     ])
     iam = googleapiclient.discovery.build("iam", "v1", credentials=credentials)
     drive = googleapiclient.discovery.build("drive", "v3", credentials=credentials)
-    
+    prid = args.project
     flist = resolve_folder(drive, args.source, args.destination)
     
     print("processing directories")
