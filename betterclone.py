@@ -108,13 +108,12 @@ def old_account(iam, drive, driveid):
     
     print("delete old account")
     
-    print(drive.email)
     try:
         apicall(drive.permissions().delete(fileId=driveid, permissionId=drive.pid, supportsAllDrives=True))
     except googleapiclient.errors.HttpError:
         pass
     try:
-        apicall(iam.projects().serviceAccounts().delete(name="projects/" + prid + "/serviceAccounts/" + drive.service_id))
+        apicall(iam.projects().serviceAccounts().delete(name="projects/" + prid + "/serviceAccounts/" + drive.email))
     except googleapiclient.errors.HttpError:
         pass
 
