@@ -98,7 +98,7 @@ def rcopy(source, dest, sname,pre):
             "mimeType": "application/vnd.google-apps.folder",
             "parents": [dest]
         }, supportsAllDrives=True).execute()
-        rcopy(i["id"], resp["id"], i["name"],nstu)
+        rcopy(i["id"], resp["id"], i["name"].replace('%',"%%"),nstu)
         s += 1
 
 httplib2shim.patch()
