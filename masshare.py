@@ -19,7 +19,7 @@ credentials = ServiceAccountCredentials.from_json_keyfile_name(contrs[0], scopes
 try:
 	did = sys.argv[1]
 except:
-	did = input('Drive ID? ')
+	did = input('Drive ID? ').strip()
 
 drive = googleapiclient.discovery.build("drive", "v3", credentials=credentials)
 aa = glob.glob('accounts/*.json')
