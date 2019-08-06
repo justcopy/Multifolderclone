@@ -1,3 +1,5 @@
+print("you probably shouldn't be using this program in production, as it's not been finished yet")
+
 from oauth2client.service_account import ServiceAccountCredentials
 import googleapiclient.discovery, json, socket, base64, random, string, argparse, itertools
 from multiprocessing.dummy import Pool as ThreadPool
