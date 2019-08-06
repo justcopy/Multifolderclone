@@ -1,6 +1,7 @@
 from oauth2client.service_account import ServiceAccountCredentials
-import googleapiclient.discovery, glob, progress.bar, sys
+import googleapiclient.discovery, glob, progress.bar, sys, time
 
+stt = time.time()
 controls = glob.glob('controller/*.json')
 
 try:
@@ -41,4 +42,8 @@ for i in tbr:
 	drive.permissions().delete(fileId=sid,permissionId=i,supportsAllDrives=True).execute()
 	pbar.next()
 pbar.finish()
-print('Done.')
+
+print('Complete.')
+hours, rem = divmod((time.time() - stt),3600)
+minutes, sec = divmod(rem,60)
+print("Elapsed Time:\n{:0>2}:{:0>2}:{:05.2f}".format(int(hours),int(minutes),sec))
