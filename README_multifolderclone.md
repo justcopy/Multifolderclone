@@ -11,7 +11,7 @@ Steps to make the required accounts for cloning
 6) Wait till the project creation is done and then click on "Select a project" again at the top and select your first project.
 7) In the "Search for APIs & Services" search bar, look for "Google Drive API", click on it and press `ENABLE`. Do the same for "Identity and Access Management (IAM) API". Repeat this step for all the projects made.
 8) Click on the Google APIs logo on the top-left, select your first project, and then go to `IAM & admin -> Service accounts` from the left pane. Next, press the blue `Create Service Account` button. In the Service account name section, input any name you want. Copy down the full Service account ID from your first project only, you will need this later. After that, press CREATE.
-9) Click on `Select a role`. From the `Project` tab, select `Owner` role and press CONTINUE. Then Press `+ Create Key`. Make sure the Key type is selected as JSON, and press CREATE. This should prompt you to save a JSON file. Save it in whereever the default download directory is for now.
+9) Click on `Select a role`. From the `Service Accounts` tab, select `Create Service Accounts` role. Then Press `ADD ANOTHER ROLE`, and under `Service Accounts` tab, select `Service Account Key Admin` role. and press CONTINUE. Then Press `+ Create Key`. Make sure the Key type is selected as JSON, and press CREATE. This should prompt you to save a JSON file. Save it in whereever the default download directory is for now.
 10) Add the email address copied in Step 8 and add this to your other project with the same roles as mentioned in Step 9. You can do this by clicking on Google APIs logo on top left, selecting the project you want to share the email address with, then click on the Navigation menu icon which to the left of Google APIs logo, click `IAM & admin > IAM`. Now press  the blue `+ ADD` button, add the email address copied in Step 8, select the roles from step 9 and then press save. Repeat this for all the projects except the first project.
 11) Place the JSON file you saved in a folder called `controller` and place the `controller` folder alongside with the 4 scripts.
 12) Open terminal in the scripts folder and run the following command. `python3 serviceaccountfactory.py`.
@@ -22,8 +22,9 @@ Steps to make the required accounts for cloning
 Steps to add all the SAs to the Shared Drive
 ---------------------------------
 1) Once the previous script is done making all the accounts, open Google Drive and make a new Shared Drive to copy all the files to.
-2) Add the address mentioned by the script as a Manager to the Shared Drive.
-3) Run the following command `python3 masshare.py [SDFolderID]`. Replace the `[SDFolderID]` with `XXXXXXXXXXXXXXXXXXX`. The Folder ID can be obtained from the Shared Drive Folder Link `https://drive.google.com/drive/folders/XXXXXXXXXXXXXXXXXXX`. This will add all the service accounts to your Shared Drive.
+2) Run the following command `python3 masshare.py [SDFolderID]`. Replace the `[SDFolderID]` with `XXXXXXXXXXXXXXXXXXX`. The Folder ID can be obtained from the Shared Drive Folder Link `https://drive.google.com/drive/folders/XXXXXXXXXXXXXXXXXXX`.
+3) Add the address mentioned by the script as a Manager to the Shared Drive and then press ENTER.
+4) If everything was done correctly, the scripr will add all the service accounts to your Shared Drive.
 
 Steps to clone a public folder to the Shared Drive
 ---------------------------------

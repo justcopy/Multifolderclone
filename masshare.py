@@ -1,6 +1,7 @@
 from oauth2client.service_account import ServiceAccountCredentials
-import googleapiclient.discovery, json, progress.bar, glob, sys
+import googleapiclient.discovery, json, progress.bar, glob, sys, time
 
+stt = time.time()
 contrs = glob.glob('controller/*.json')
 
 try:
@@ -19,7 +20,7 @@ credentials = ServiceAccountCredentials.from_json_keyfile_name(contrs[0], scopes
 try:
 	did = sys.argv[1]
 except:
-	did = input('Drive ID? ')
+	did = input('Drive ID? ').strip()
 
 drive = googleapiclient.discovery.build("drive", "v3", credentials=credentials)
 aa = glob.glob('accounts/*.json')
@@ -35,3 +36,6 @@ for i in aa:
 pbar.finish()
 
 print('Complete. You can now drop the controller inside the accounts folder for an added SA.')
+hours, rem = divmod((time.time() - stt),3600)
+minutes, sec = divmod(rem,60)
+print("Elapsed Time:\n{:0>2}:{:0>2}:{:05.2f}".format(int(hours),int(minutes),sec))
