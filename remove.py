@@ -25,16 +25,16 @@ print('Getting permissions...')
 
 tbr = []
 
-rp = drive.permissions().list(fileId=sid,supportsAllDrives=True).execute()['permissions']
-for i in rp:
-	if i['role'] != 'organizer':
-		tbr.append(i['id'])
-
-while "nextPageToken" in rp:
-	rp = drive.permissions().list(fileId=sid,supportsAllDrives=True).execute()['permissions']
-	for i in rp:
+rp = drive.permissions().list(fileId=sid,supportsAllDrives=True).execute()
+cont = True
+while cont:
+	for i in rp['permissions']:
 		if i['role'] != 'organizer':
 			tbr.append(i['id'])
+	if "nextPageToken" in rp:
+		rp = drive.permissions().list(fileId=sid,supportsAllDrives=True,pageToken=rp["nextPageToken"]).execute()
+	else:
+		cont = False
 
 pbar = progress.bar.Bar("Removing accounts",max=len(tbr))
 
