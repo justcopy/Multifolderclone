@@ -1,5 +1,7 @@
 from oauth2client.service_account import ServiceAccountCredentials
-import googleapiclient.discovery, json, progress.bar, glob, sys, argparse
+import googleapiclient.discovery, json, progress.bar, glob, sys, argparse, time
+
+stt = time.time()
 
 parse = argparse.ArgumentParser(description='A tool to add service accounts to a shared drive from a folder containing credential files.')
 parse.add_argument('--path','-p',default='accounts',help='Specify an alternative path to the service accounts folder.')
@@ -39,3 +41,6 @@ for i in aa:
 pbar.finish()
 
 print('Complete. You can now drop the controller inside the accounts folder for an added SA.')
+hours, rem = divmod((time.time() - stt),3600)
+minutes, sec = divmod(rem,60)
+print("Elapsed Time:\n{:0>2}:{:0>2}:{:05.2f}".format(int(hours),int(minutes),sec))
