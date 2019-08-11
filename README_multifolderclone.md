@@ -22,7 +22,7 @@ Steps to make the required accounts for cloning
 Steps to add all the SAs to the Shared Drive
 ---------------------------------
 1) Once the previous script is done making all the accounts, open Google Drive and make a new Shared Drive to copy all the files to.
-2) Run the following command `python3 masshare.py [SDFolderID]`. Replace the `[SDFolderID]` with `XXXXXXXXXXXXXXXXXXX`. The Folder ID can be obtained from the Shared Drive Folder Link `https://drive.google.com/drive/folders/XXXXXXXXXXXXXXXXXXX`.
+2) Run the following command `python3 masshare.py -d [SDFolderID]`. Replace the `[SDFolderID]` with `XXXXXXXXXXXXXXXXXXX`. The Folder ID can be obtained from the Shared Drive Folder Link `https://drive.google.com/drive/folders/XXXXXXXXXXXXXXXXXXX`.
 3) Add the address mentioned by the script as a Manager to the Shared Drive and then press ENTER.
 4) If everything was done correctly, the scripr will add all the service accounts to your Shared Drive.
 
