@@ -1,4 +1,4 @@
-from oauth2client.service_account import ServiceAccountCredentials
+from google.oauth2.service_account import Credentials
 import googleapiclient.discovery, base64, json, progress.bar, glob, sys
 from os import mkdir
 
@@ -57,7 +57,7 @@ while len(prefix) < 4:
 		print('Email prefix must be 5 characters or longer!')
 print('Using ' + str(len(projects)) + ' projects...')
 
-credentials = ServiceAccountCredentials.from_json_keyfile_name(contrs[0], scopes=[
+credentials = Credentials.from_service_account_file(contrs[0], scopes=[
 	"https://www.googleapis.com/auth/iam"
 	])
 iam = googleapiclient.discovery.build("iam", "v1", credentials=credentials)
