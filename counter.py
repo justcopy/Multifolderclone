@@ -1,4 +1,4 @@
-from oauth2client.service_account import ServiceAccountCredentials
+from google.oauth2.service_account import Credentials
 import googleapiclient.discovery, json, progress.bar, socket, time, sys, glob
 
 stt = time.time()
@@ -14,7 +14,7 @@ except IndexError:
     print('No Service Account Found.')
     sys.exit(0)
 
-credentials = ServiceAccountCredentials.from_json_keyfile_name(filename, scopes=[
+credentials = Credentials.from_service_account_file(filename, scopes=[
     "https://www.googleapis.com/auth/drive"
 ])
 drive = googleapiclient.discovery.build("drive", "v3", credentials=credentials)
