@@ -1,4 +1,4 @@
-from oauth2client.service_account import ServiceAccountCredentials
+from google.oauth2.service_account import Credentials
 import googleapiclient.discovery, glob, progress.bar, sys, time
 
 stt = time.time()
@@ -15,7 +15,7 @@ try:
 except:
 	sid = input("Shared Drive ID? ").strip()
 
-credentials = ServiceAccountCredentials.from_json_keyfile_name(key, scopes=[
+credentials = Credentials.from_service_account_file(key, scopes=[
 	"https://www.googleapis.com/auth/drive"
 ])
 
