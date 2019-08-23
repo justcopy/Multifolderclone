@@ -1,4 +1,4 @@
-from oauth2client.service_account import ServiceAccountCredentials
+from google.oauth2.service_account import Credentials
 import googleapiclient.discovery, progress.bar, time, threading, httplib2shim, glob, sys, argparse
 
 stt = time.time()
@@ -108,7 +108,7 @@ accsf = glob.glob(args.path + '/*.json')
 pbar = progress.bar.Bar("Creating Drive Services", max=len(accsf))
 for i in accsf:
     accounts += 1
-    credentials = ServiceAccountCredentials.from_json_keyfile_name(i, scopes=[
+    credentials = Credentials.from_service_account_file(i, scopes=[
         "https://www.googleapis.com/auth/drive"
     ])
     drive.append(googleapiclient.discovery.build("drive", "v3", credentials=credentials))
