@@ -13,5 +13,5 @@ Short descriptions for each script
 
 README's for specific scripts
 ---------------------------------
-[(NOT RECOMENDED, DOESN'T WORK PROPERLY) Link for betterclone.py README](https://github.com/Spazzlo/folderclone/blob/master/README_betterclone.md)  
 [Link for multifolderclone README](https://github.com/Spazzlo/folderclone/blob/master/README_multifolderclone.md)  
+[(NOT RECOMENDED, DOESN'T WORK PROPERLY) Link for betterclone.py README](https://github.com/Spazzlo/folderclone/blob/master/README_betterclone.md)  
