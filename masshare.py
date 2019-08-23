@@ -1,4 +1,4 @@
-from oauth2client.service_account import ServiceAccountCredentials
+from google.oauth2.service_account import Credentials
 import googleapiclient.discovery, json, progress.bar, glob, sys, argparse, time
 
 stt = time.time()
@@ -23,7 +23,7 @@ except IndexError:
 
 input('Make sure the following email is added to the shared drive as Manager:\n' + json.loads((open(contrs[0],'r').read()))['client_email'])
 
-credentials = ServiceAccountCredentials.from_json_keyfile_name(contrs[0], scopes=[
+credentials = Credentials.from_service_account_file(contrs[0], scopes=[
 	"https://www.googleapis.com/auth/drive"
 ])
 
