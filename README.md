@@ -15,3 +15,4 @@ README's for specific scripts
 ---------------------------------
 [Link for multifolderclone README](https://github.com/Spazzlo/folderclone/blob/master/README_multifolderclone.md)  
 [(NOT RECOMENDED, DOESN'T WORK PROPERLY) Link for betterclone.py README](https://github.com/Spazzlo/folderclone/blob/master/README_betterclone.md)  
+[Alternate tutorial on Blackpearl.Biz](https://blackpearl.biz/threads/7408/)
